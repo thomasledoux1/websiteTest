@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <title>Thomas Ledoux' Angular Website</title>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+    <script src="/javascripts/angularApp.js"></script>
+  </head>
+  <body ng-app="thomasWebsite">
+    <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+   <ul class="nav navbar-nav">
+     <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+     <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+     <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+     <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+   </ul>
+ </nav>
+ <div class="row">
+   <div class="col-md-6 col-md-offset-3">
+     <ui-view></ui-view>
+   </div>
+ </div>
+
+ <script type="text/ng-template" id="/home.html">
+<div class="page-header">
+ <h1>Thomas' website</h1>
+</div>
+
+<div ng-repeat="taak in taken">
+ <a ng-show="taak.title" href="{{taak.title}}">
+   {{taak.title}}
+ </a>
+ <span ng-hide="taak.title">
+   {{taak.title}}
+ </span>
+ <span ng-show="taak.description">
+   description : {{taak.description}}
+ </span>
+ <span ng-show="taak.author">
+   posted by <a>{{taak.author}}</a> |
+ </span>
+</div>
+<form ng-submit="addTaak()"
+     style="margin-top:30px;">
+     <h3>Add a new post</h3>
+
+     <div class="form-group">
+       <input type="text"
+         class="form-control"
+         placeholder="Title"
+         ng-model="title"></input>
+     </div>
+     <div class="form-group">
+       <input type="text"
+       class="form-control"
+       placeholder="Link"
+       ng-model="link"></input>
+     </div>
+     <div class="form-group">
+       <input type="text"
+       class="form-control"
+       placeholder="description"
+       ng-model="description"></input>
+     </div>
+
+     <button type="submit" class="btn btn-primary">Post</button>
+   </form>
+</script>
+    <script type="text/ng-template" id="/register.html">
+      <div class="page-header">
+       <h1>Thomas' website</h1>
+      </div>
+
+  <div ng-show="error" class="alert alert-danger row">
+    <span>{{ error.message }}</span>
+  </div>
+
+  <form ng-submit="register()"
+    style="margin-top:30px;">
+    <h3>Register</h3>
+
+    <div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Username"
+      ng-model="user.username"></input>
+    </div>
+    <div class="form-group">
+      <input type="password"
+      class="form-control"
+      placeholder="Password"
+      ng-model="user.password"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</script>
+<script type="text/ng-template" id="/login.html">
+  <div class="page-header">
+   <h1>Thomas' website</h1>
+  </div>
+
+  <div ng-show="error" class="alert alert-danger row">
+    <span>{{ error.message }}</span>
+  </div>
+
+  <form ng-submit="logIn()"
+    style="margin-top:30px;">
+    <h3>Log In</h3>
+
+    <div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Username"
+      ng-model="user.username"></input>
+    </div>
+    <div class="form-group">
+      <input type="password"
+      class="form-control"
+      placeholder="Password"
+      ng-model="user.password"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </form>
+  </script>
+
+
+
+<script type="text/ng-template" id="/taken.html">
+  <div class="page-header">
+    <h3>
+      <a ng-show="taak.link" href="{{taak.link}}">
+        {{taak.title}}
+      </a>
+      <span ng-hide="taak.link">
+        {{taak.title}}
+      </span>
+    </h3>
+  </div>
+</script>
+
+
+  </body>
+</html>
